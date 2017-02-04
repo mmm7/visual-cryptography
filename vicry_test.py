@@ -14,7 +14,7 @@ class VicryTest(unittest.TestCase):
       for name, data in s.iteritems():
         debug = str(key) + "/" + name + "/"
         self.assertEqual(len(data), 2, debug)  # pixel: black, white
-        black, white = data
+        white, black = data
         self.assertEqual(len(black), len(white), debug)
         first_block = black[0][0]
         ysize = len(first_block)
@@ -22,7 +22,7 @@ class VicryTest(unittest.TestCase):
         xsize = len(first_block[0])
         self.assertGreater(xsize, 0, debug)
 
-        for mask_set in black + white:
+        for mask_set in white + black:
           self.assertEqual(len(mask_set), n)
           # All the blocks should be...
           for block in mask_set:
