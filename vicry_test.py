@@ -14,7 +14,7 @@ class VicryTest(unittest.TestCase):
       for name, data in s.iteritems():
         debug = str(key) + "/" + name + "/"
         self.assertEqual(len(data), 2, debug)  # pixel: black, white
-        white, black = data
+        black, white = data
         self.assertEqual(len(black), len(white), debug)
         first_block = black[0][0]
         ysize = len(first_block)
