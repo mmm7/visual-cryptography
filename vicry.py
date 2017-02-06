@@ -39,10 +39,13 @@ _flip_v = lambda m: list(reversed(m))
 # Flip a list of lists horizontally.
 _flip_h = lambda m: map(_flip_v, m)
 
+def _add_transformations(p):
+  for i in xrange(3):
+    p.append(tuple(map(_rotate, p[-1])))
+
 # Add (append) the other (90-degree or 180 degree) "rotations" of the patterns.
 for _, v1 in M.iteritems():
   for _, v2 in v1.iteritems():
     b, w = v2
-    for i in xrange(3):
-      b.append(tuple(map(_rotate, b[-1])))
-      w.append(tuple(map(_rotate, w[-1])))
+    _add_transformations(b)
+    _add_transformations(w)
