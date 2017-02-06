@@ -27,10 +27,19 @@ M = {
   },
 }
 
-# Rotate a list of lists.
+# Rotate a list of lists by 90 degrees.
 _rotate = lambda m: zip(*m[::-1])
 
-# Add (append) the 3 other (90-degree) "rotations" of the patterns.
+# Transpose a list of lists.
+_transpose = lambda m: zip(*m)
+
+# Flip a list of lists vertically.
+_flip_v = lambda m: list(reversed(m))
+
+# Flip a list of lists horizontally.
+_flip_h = lambda m: map(_flip_v, m)
+
+# Add (append) the other (90-degree or 180 degree) "rotations" of the patterns.
 for _, v1 in M.iteritems():
   for _, v2 in v1.iteritems():
     b, w = v2
