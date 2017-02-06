@@ -49,12 +49,12 @@ def _transformations(p):
     tuple(map(lambda x: _flip_v(x), p)),
   ]
 
-def _add_transformations(p):
-   p.extend(_transformations(p[0]))
+def _all_transformations(ps):
+  return _flatten([_transformations(p) for p in ps])
 
 # Add (append) the other (90-degree or 180 degree) "rotations" of the patterns.
 for _, v1 in M.iteritems():
   for _, v2 in v1.iteritems():
     b, w = v2
-    _add_transformations(b)
-    _add_transformations(w)
+    b.extend(_all_transformations(b))
+    w.extend(_all_transformations(w))
