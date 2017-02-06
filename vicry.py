@@ -1,8 +1,24 @@
 M = {
   (1, 1): {
+    # Identity. Test pattern.
     'a': (
       [ (((0,),),), ],
       [ (((1,),),), ],
+    ),
+    # Scale 2x horizontally. Test pattern.
+    't12': (
+      [ (((0,0),),), ],
+      [ (((1,1),),), ],
+    ),
+    # Scale 2x vertically. Test pattern.
+    't21': (
+      [ (((0,),(0,)),), ],
+      [ (((1,),(1,)),), ],
+    ),
+    # Resize 2x. Test pattern
+    't22': (
+      [ (((0,0),(0,0)),), ],
+      [ (((1,1),(1,1)),), ],
     ),
   },
   (2, 2): {
@@ -52,7 +68,7 @@ def _transformations(p):
 def _all_transformations(ps):
   return _flatten([_transformations(p) for p in ps])
 
-# Add (append) the other (90-degree or 180 degree) "rotations" of the patterns.
+# Add (append) the flipped versions, rotations, transpositions of the patterns.
 for _, v1 in M.iteritems():
   for _, v2 in v1.iteritems():
     b, w = v2
