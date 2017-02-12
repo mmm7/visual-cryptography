@@ -36,7 +36,8 @@ def apply_masks(image, masks, random):
       masks = random.choice(masks_to_use)
       assert n == len(masks)
       assert n == len(outputs)
-      for output, mask in zip(outputs, masks):  # TODO(randomization!)
+      random.shuffle(outputs)  # This is important for some masks.
+      for output, mask in zip(outputs, masks):
         assert pixel_y == len(mask)
         for y, mask_row in enumerate(mask):
           assert pixel_x == len(mask_row)
