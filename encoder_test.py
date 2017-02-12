@@ -32,3 +32,13 @@ class ApplyTest(unittest.TestCase):
   def testApplyMasks_2_2(self):
     o = e.apply_masks(self.IMG0, vicry.M[(2,2)]['a'], random.Random(8))
     self.assertEqual(list(o),  [[[0, 1], [1, 0]], [[0, 1], [1, 0]]])
+
+  def testApplyMasks_non_0_1(self):
+    """Test values that are not 0 or 1. """
+    IMG = [[100,999],[0,7]]
+
+    o = e.apply_masks(IMG, vicry.M[(1,1)]['a'], random.Random(3))
+    self.assertEqual(list(o), [[[1, 1], [0, 1]]])
+
+    o = e.apply_masks(IMG, vicry.M[(1,1)]['t12'], random.Random(3))
+    self.assertEqual(list(o), [[[1,1,1,1], [0,0,1,1]]])

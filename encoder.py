@@ -31,7 +31,7 @@ def apply_masks(image, masks, random):
     for orig_pixel in row:
       # Processing a pixel of the original image.
       # Which set of mask sets to use?
-      masks_to_use = (black_masks, white_masks)[orig_pixel]
+      masks_to_use = (black_masks, white_masks)[bool(orig_pixel)]
       # Pick one mask set (one for each output image).
       masks = random.choice(masks_to_use)
       assert n == len(masks)
