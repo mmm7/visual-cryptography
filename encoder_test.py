@@ -30,7 +30,7 @@ class ApplyTest(unittest.TestCase):
     self.assertEqual(list(o), [[[1,1,1,1], [0,0,1,1]]])
 
   def testApplyMasks_2_2(self):
-    o = e.apply_masks(self.IMG0, vicry.M[(2,2)]['a'], random.Random(8))
+    o = e.apply_masks(self.IMG0, vicry.M[(2,2)]['a'], random.Random(5))
     self.assertEqual(list(o),  [[[0, 1], [1, 0]], [[0, 1], [1, 0]]])
 
   def testApplyMasks_non_0_1(self):

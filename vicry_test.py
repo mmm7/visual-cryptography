@@ -8,9 +8,13 @@ class VicryTest(unittest.TestCase):
   M = vicry.M
 
   def testKnownData(self):
-    self.assertEqual(len(self.M[(1,1)]['a'][0]), 4)
-    self.assertEqual(len(self.M[(2,2)]['a'][0]), 4)
-    self.assertEqual(len(self.M[(3,3)]['a'][0]), 4)
+    self.assertEqual(len(self.M[(1,1)]['a'][0]), 8)
+    self.assertEqual(len(self.M[(2,2)]['a'][0]), 8)
+    self.assertEqual(len(self.M[(3,3)]['a'][0]), 8)
+
+    self.assertEqual(len(self.M[(1,1)]['t21'][0]), 4)
+    self.assertEqual(len(self.M[(1,1)]['t12'][0]), 4)
+    self.assertEqual(len(self.M[(1,1)]['t22'][0]), 8)
 
   def testRotate(self):
     self.assertEqual(vicry._rotate([(1,)]), [(1,)])

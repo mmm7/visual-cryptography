@@ -31,6 +31,29 @@ M = {
       [ (((0,1),(1,0)), ((1,0),(0,1))), ],
     ),
   },
+  (3,2): {
+    'a': (
+      [
+        (((1,1,1),(0,0,0),(0,0,0)), ((1,1,1),(0,0,0),(0,0,0)), ((1,1,1),(0,0,0),(0,0,0))),
+        (((0,0,0),(1,1,1),(0,0,0)), ((0,0,0),(1,1,1),(0,0,0)), ((0,0,0),(1,1,1),(0,0,0))),
+        (((0,0,0),(0,0,0),(1,1,1)), ((0,0,0),(0,0,0),(1,1,1)), ((0,0,0),(0,0,0),(1,1,1))),
+      ],
+      [
+        # 3 times the same is fine, it'll be transformed.
+        (((1,1,1),(0,0,0),(0,0,0)), ((0,0,0),(1,1,1),(0,0,0)), ((0,0,0),(0,0,0),(1,1,1))),
+        (((1,1,1),(0,0,0),(0,0,0)), ((0,0,0),(1,1,1),(0,0,0)), ((0,0,0),(0,0,0),(1,1,1))),
+        (((1,1,1),(0,0,0),(0,0,0)), ((0,0,0),(1,1,1),(0,0,0)), ((0,0,0),(0,0,0),(1,1,1))),
+      ]
+    ),
+    'b': (
+      # X-             X-             X-
+      # --             --             --
+      [ (((1,0),(0,0)), ((1,0),(0,0)), ((1,0),(0,0))), ],
+      # X-             -X             --
+      # --             --             -X
+      [ (((1,0),(0,0)), ((0,1),(0,0)), ((0,0),(0,1))), ],
+    ),
+  },
   (3,3): {
     'a': (
       # XX             X-             X-
@@ -65,12 +88,21 @@ def _transformations(p):
     tuple(map(lambda x: _flip_v(x), p)),
   ]
 
-def _all_transformations(ps):
-  return _flatten([_transformations(p) for p in ps])
+def _square_transformations(p):
+  return [
+    tuple(map(lambda x: _transpose(x), p))
+  ]
+
+def _all_transformations(ps, f):
+  return _flatten([f(p) for p in ps])
 
 # Add (append) the flipped versions, rotations, transpositions of the patterns.
 for _, v1 in M.iteritems():
   for _, v2 in v1.iteritems():
     b, w = v2
-    b.extend(_all_transformations(b))
-    w.extend(_all_transformations(w))
+    b.extend(_all_transformations(b, _transformations))
+    w.extend(_all_transformations(w, _transformations))
+    sample = b[0][0]
+    if len(sample) == len(sample[0]):
+      b.extend(_all_transformations(b, _square_transformations))
+      w.extend(_all_transformations(w, _square_transformations))
