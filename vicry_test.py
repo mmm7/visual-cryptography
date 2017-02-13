@@ -62,3 +62,42 @@ class VicryTest(unittest.TestCase):
             for row in block:
               for cell in row:
                 self.assertTrue(cell in (0,1))
+
+  @staticmethod
+  def _count_blocks(color):
+    color_map = {}
+    for mask_set in color:
+      for block in mask_set:
+        b = tuple(map(tuple,block))
+        num = color_map.setdefault(b, 0)
+        color_map[b] = num + 1
+    return color_map
+
+  def testStrength(self):
+    """ Test that the scheme is not weak.
+
+    Test that there is no correlation between the pattern and the original
+    pixel. Black and white pixels should result in exactly the same
+    distribution of patterns.
+
+    Note that passing this test doesn't mean that the scheme is safe.
+    """
+    for key, s in self.M.iteritems():
+      if key == (1,1): continue    # Does not apply.
+      n, k = key
+      self.assertGreaterEqual(n,k)  # (n, k) scheme
+      for name, data in s.iteritems():
+        black, white = data
+        first_block = black[0][0]
+        ysize = len(first_block)
+        xsize = len(first_block[0])
+
+        white_map = self._count_blocks(white)
+        black_map = self._count_blocks(black)
+        print 'BLACK:', black_map
+        print 'WHITE:', white_map
+
+        for block, white_count in white_map.iteritems():
+          debug = str(key) + "/" + name + "/" + str(block)
+          print block
+          self.assertEquals(white_count, black_map[block], debug)
