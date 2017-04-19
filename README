@@ -1,0 +1,10 @@
+sudo pip install virtualenv
+virtualenv venv
+
+venv/bin/pip install nose
+venv/bin/pip install unittest2
+venv/bin/pip install pypng
+
+venv/bin/nosetests
+
+venv/bin/python ./encode.py 3 2 testdata/hullam.png b
